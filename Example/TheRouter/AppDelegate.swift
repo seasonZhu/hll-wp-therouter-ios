@@ -19,13 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         // 日志回调，可以监控线上路由运行情况
         TheRouter.logcat { url, logType, errorMsg in
             NSLog("TheRouter: logMsg- \(url) \(logType.rawValue) \(errorMsg)")
         }
+        
+        // 类似RDVTabBarControlle也没有继承UITabbarController，导航栈也不同，那么就需要自己实现各种跳转逻辑
+//        TheRouter.customJumpAction { jumpType, instance in
+//          
+//        }
         
         // 路由懒加载注册,
         // - excludeCocoapods: 是否对Cocoapods生成的组件进行动态注册

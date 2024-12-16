@@ -7,6 +7,19 @@
 
 import Foundation
 
+// 定义一个封装类来存储和执行接受参数的闭包
+public class TheRouerParamsClosureWrapper: NSObject {
+    public var closure: ((Any) -> Void)?
+
+    public init(closure: @escaping (Any) -> Void) {
+        self.closure = closure
+    }
+
+    public func executeClosure(params: Any) {
+        closure?(params)
+    }
+}
+
 public class TheRouter: TheRouterParser {
     
     // MARK: - Constants
@@ -15,6 +28,9 @@ public class TheRouter: TheRouterParser {
     public typealias MatchResult = (matched: Bool, queries: [String: Any])
     public typealias LazyRegisterHandleBlock = (_ url: String, _ userInfo: [String: Any]) -> Any?
     public typealias RouterLogHandleBlock = (_ url: String, _ logType: TheRouterLogType, _ errorMsg: String) -> Void
+    
+    // MARK: - 自定义跳转
+    public typealias CustomJumpActionClouse = (LAJumpType, UIViewController) -> Void
     
     // MARK: - Private property
     private var interceptors = [TheRouterInterceptor]()
@@ -41,12 +57,14 @@ public class TheRouter: TheRouterParser {
     
     public var logcat: RouterLogHandleBlock?
     
+    public var customJumpAction: CustomJumpActionClouse?
+    
     // MARK: - Public method
     func addRouterItem(_ patternString: String,
-                       priority: uint = 0,
-                       handle: @escaping TheRouterPattern.HandleBlock) {
+                       classString: String,
+                       priority: uint = 0) {
         
-        let pattern = TheRouterPattern.init(patternString.trimmingCharacters(in: CharacterSet.whitespaces), priority: priority, handle: handle)
+        let pattern = TheRouterPattern.init(patternString.trimmingCharacters(in: CharacterSet.whitespaces), classString, priority: priority)
         patterns.append(pattern)
         patterns.sort { $0.priority > $1.priority }
     }
@@ -69,6 +87,10 @@ public class TheRouter: TheRouterParser {
     
     func logcat(_ handle: @escaping RouterLogHandleBlock) {
         logcat = handle
+    }
+    
+    func customJumpAction(_ handle: @escaping CustomJumpActionClouse) {
+        customJumpAction = handle
     }
     
     func removeRouter(_ patternString: String) {
