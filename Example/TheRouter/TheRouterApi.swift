@@ -144,3 +144,13 @@ public class TheRouterAnyPrifxApi:NSObject, CustomRouterInfo {
     
     public override init() {}
 }
+
+public class TheRouterMacroRegisterApi:NSObject, CustomRouterInfo {
+    
+    public static var patternString = "scheme://router/demo-macro"
+    public static var routerClass = "TheRouter_Example.TheRouterMacroRegisterController"
+    public var params: [String: Any] { return [:] }
+    public var jumpType: LAJumpType = .push
+    
+    public override init() {}
+}
