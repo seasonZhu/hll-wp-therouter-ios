@@ -95,7 +95,7 @@ extension TheRouterBuilder {
         return TheRouter.openURL(result)
     }
     
-    public func navigation(_ handler: ComplateHandler = nil) {
-        TheRouter.openURL(buildResult, complateHandler: handler)
+    public func navigation(_ handler: CompleteHandler = nil) {
+        TheRouter.openURL(buildResult, completeHandler: handler)
     }
 }

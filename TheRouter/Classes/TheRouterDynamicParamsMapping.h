@@ -19,7 +19,7 @@ typedef struct ReturnStruct{
 + (instancetype)router;
 
 /**
- 初始化 类。可直接通过NSClassFromString 获取。在这里为保持陆游的美观。才写上
+ 初始化 类。可直接通过NSClassFromString 获取。在这里为保持路由的美观。才写上
  
  @param className 类字符串名字
  @return 返回类对象

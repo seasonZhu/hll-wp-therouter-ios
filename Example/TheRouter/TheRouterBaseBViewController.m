@@ -9,7 +9,7 @@
 #import "TheRouterBaseBViewController.h"
 #import <TheRouter/TheRouter-Swift.h>
 
-NSString *const TheRouterTabBarSelecIndex = @"tabBarSelecIndex";
+NSString *const TheRouterTabBarSelectIndex = @"tabBarSelectIndex";
 @implementation TheRouterBaseBViewController
 
 - (void)viewDidLoad {
@@ -18,7 +18,7 @@ NSString *const TheRouterTabBarSelecIndex = @"tabBarSelecIndex";
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [TheRouerBridge openURL:@"scheme://router/tabbar?jumpType=5" userInfo:@{TheRouterTabBarSelecIndex: @1} complateHandler:^(NSDictionary<NSString *,id> *  queries, UIViewController * resultVC) {
+        [TheRouerBridge openURL:@"scheme://router/tabbar?jumpType=5" userInfo:@{TheRouterTabBarSelectIndex: @1} completeHandler:^(NSDictionary<NSString *,id> *  queries, UIViewController * resultVC) {
                     
         }];
     });

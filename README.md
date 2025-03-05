@@ -45,7 +45,7 @@ iOS | [Android](https://github.com/HuolalaTech/hll-wp-therouter-android) | [中�
 | 13 | 支持路由注册期的安全检查 | TheRouterManager.routerForceRecheck()  客户端强制校验，是否匹配,不匹配触发断言|
 | 14 | 支持后端对客户端服务的调用 | TheRouter.openURL() 服务接口下发，MQTT,JSBridge|
 | 15 | 支持链式调用 | TheRouterBuilder.build("scheme://router/demo").withInt(key: "intValue", value: 2).navigation() |
-| 16 | 支持链式调用打开路由回调闭包 | TheRouterBuilder.build("scheme://router/demo").withInt(key: "intValue", value: 2).navigation(_ complateHandler: ComplateHandler = nil) |
+| 16 | 支持链式调用打开路由回调闭包 | TheRouterBuilder.build("scheme://router/demo").withInt(key: "intValue", value: 2).navigation(_ completeHandler: CompleteHandler = nil) |
 | 17 | 支持非链式调用打开路由回调闭包 | TheRouter.openURL("https://therouter.cn/" ) { param, instance in } |
 | 18 | 增加异步获取符合条件注册类 | TheRouterManager.fetchRouterRegisterClass() |
 | 19 | 增加路由本地缓存能力 | TheRouterManager.fetchRouterRegisterClass(excludeCocoapods: true, userCache: true) |
@@ -407,9 +407,9 @@ TheRouter.removeRouter(TheRouterViewCApi.patternString)
 
 ```Swift
 
-TheRouter.openURL("scheme://router/tabbar?jumpType=5&tabBarSelecIndex=1")
+TheRouter.openURL("scheme://router/tabbar?jumpType=5&tabBarSelectIndex=1")
 
-[TheRouerBridge openURL:@"scheme://router/tabbar?jumpType=5" userInfo:@{TheRouterTabBarSelecIndex: @1} complateHandler:^(NSDictionary<NSString *,id> *  queries, UIViewController * resultVC) {
+[TheRouerBridge openURL:@"scheme://router/tabbar?jumpType=5" userInfo:@{TheRouterTabBarSelectIndex: @1} completeHandler:^(NSDictionary<NSString *,id> *  queries, UIViewController * resultVC) {
             
 }];
 ```
@@ -566,7 +566,7 @@ Swift 中，我们都知道 Swift 是不支持注解的，那么 Swift 动态注
 
 ```Swift
 @discardableResult
-public class func openURL(_ urlString: String, userInfo: [String: Any] = [String: Any](), handler: complateHandler = nil) -> Any? {
+public class func openURL(_ urlString: String, userInfo: [String: Any] = [String: Any](), handler: completeHandler = nil) -> Any? {
     if urlString.isEmpty {
         return nil
     }
@@ -579,7 +579,7 @@ public class func openURL(_ urlString: String, userInfo: [String: Any] = [String
 
 // MARK: - Public method
 @discardableResult
-public class func openURL(_ uriTuple: (String, [String: Any]), handler: complateHandler = nil) -> Any? {
+public class func openURL(_ uriTuple: (String, [String: Any]), handler: completeHandler = nil) -> Any? {
     if !shareInstance.isLoaded {
         return shareInstance.lazyRegisterHandleBlock?(uriTuple.0, uriTuple.1)
     } else {
@@ -587,7 +587,7 @@ public class func openURL(_ uriTuple: (String, [String: Any]), handler: complate
     }
 }
 
-public class func openCacheRouter(_ uriTuple: (String, [String: Any]), handler: complateHandler = nil) -> Any? {
+public class func openCacheRouter(_ uriTuple: (String, [String: Any]), handler: completeHandler = nil) -> Any? {
 
     if uriTuple.0.isEmpty {
         return nil

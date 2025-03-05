@@ -16,15 +16,15 @@ public class TheRouerBridge: NSObject {
     
     // 方法1：根据URL字符串打开
     @discardableResult
-    public class func openURL(_ urlString: String, userInfo: [String: Any] = [String: Any](), complateHandler: ComplateHandler = nil) -> Any? {
-        return TheRouter.openURL(urlString, userInfo: userInfo, complateHandler: complateHandler)
+    public class func openURL(_ urlString: String, userInfo: [String: Any] = [String: Any](), completeHandler: CompleteHandler = nil) -> Any? {
+        return TheRouter.openURL(urlString, userInfo: userInfo, completeHandler: completeHandler)
     }
     
     
     // 方法2：根据URL元组打开
      @discardableResult
-     public class func openURL(_ uriTuple: (String, [String: Any]), complateHandler: ComplateHandler = nil) -> Any? {
-         return TheRouter.openURL(uriTuple, complateHandler: complateHandler)
+     public class func openURL(_ uriTuple: (String, [String: Any]), completeHandler: CompleteHandler = nil) -> Any? {
+         return TheRouter.openURL(uriTuple, completeHandler: completeHandler)
      }
 
      // 方法3：根据URL元组打开WebURL

@@ -179,10 +179,10 @@ extension TheRouterManager {
                 }
                 
 #if DEBUG
-                    if let clss = currentClass as? CustomRouterInfo.Type {
-                        apiArray.append(clss.patternString)
-                        classMapArray.append(clss.routerClass)
-                    }
+                if let clss = currentClass as? CustomRouterInfo.Type {
+                    apiArray.append(clss.patternString)
+                    classMapArray.append(clss.routerClass)
+                }
 #endif
             }
         }

@@ -12,23 +12,23 @@ import UIKit
 extension TheRouter {
     
     @discardableResult
-    public class func openURL(_ urlString: String, userInfo: [String: Any] = [String: Any](), complateHandler: ComplateHandler = nil) -> Any? {
+    public class func openURL(_ urlString: String, userInfo: [String: Any] = [String: Any](), completeHandler: CompleteHandler = nil) -> Any? {
         if urlString.isEmpty {
             return nil
         }
         if !shareInstance.routerLoaded {
             return shareInstance.lazyRegisterHandleBlock?(urlString, userInfo)
         } else {
-            return openCacheRouter((urlString, userInfo), complateHandler: complateHandler)
+            return openCacheRouter((urlString, userInfo), completeHandler: completeHandler)
         }
     }
     
     @discardableResult
-    public class func openURL(_ uriTuple: (String, [String: Any]), complateHandler: ComplateHandler = nil) -> Any? {
+    public class func openURL(_ uriTuple: (String, [String: Any]), completeHandler: CompleteHandler = nil) -> Any? {
         if !shareInstance.routerLoaded {
             return shareInstance.lazyRegisterHandleBlock?(uriTuple.0, uriTuple.1)
         } else {
-            return openCacheRouter(uriTuple, complateHandler: complateHandler)
+            return openCacheRouter(uriTuple, completeHandler: completeHandler)
         }
     }
     
@@ -44,7 +44,7 @@ extension TheRouter {
     }
     
     
-    public class func openCacheRouter(_ uriTuple: (String, [String: Any]), complateHandler: ComplateHandler = nil) -> Any? {
+    public class func openCacheRouter(_ uriTuple: (String, [String: Any]), completeHandler: CompleteHandler = nil) -> Any? {
         
         if uriTuple.0.isEmpty {
             return nil
@@ -53,12 +53,12 @@ extension TheRouter {
         if uriTuple.0.contains(shareInstance.serviceHost) {
             return routerService(uriTuple)
         } else {
-            return routerJump(uriTuple, complateHandler: complateHandler)
+            return routerJump(uriTuple, completeHandler: completeHandler)
         }
     }
     
     // 路由跳转
-    public class func routerJump(_ uriTuple: (String, [String: Any]), complateHandler: ComplateHandler = nil) -> Any? {
+    public class func routerJump(_ uriTuple: (String, [String: Any]), completeHandler: CompleteHandler = nil) -> Any? {
         
         let response = TheRouter.requestURL(uriTuple.0, userInfo: uriTuple.1)
         let queries = response.queries
@@ -91,7 +91,7 @@ extension TheRouter {
             shareInstance.logcat?(uriTuple.0 , .logError, "resultVC: nil")
         }
         
-        complateHandler?(queries, resultVC)
+        completeHandler?(queries, resultVC)
         
         return resultVC
     }
@@ -120,7 +120,7 @@ extension TheRouter {
     }
     
     private class func showTabBar(queries: [String: Any]) {
-        let selectIndex: Int = processParameter(queries[TheRouterTabBarSelecIndex] ?? 0) ?? 0
+        let selectIndex: Int = processParameter(queries[TheRouterTabBarSelectIndex] ?? 0) ?? 0
         let tabVC = UIApplication.shared.delegate?.window??.rootViewController
         if let tabVC = tabVC as? UITabBarController {
             let navVC: UINavigationController? = la_getTopViewController(nil)?.navigationController

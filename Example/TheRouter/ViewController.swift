@@ -211,7 +211,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 debugPrint("\(param ?? [:]) \(instance ?? "")")
             }
         case 8:
-            TheRouter.openURL("scheme://router/tabbar?jumpType=5&tabBarSelecIndex=1")
+            TheRouter.openURL("scheme://router/tabbar?jumpType=5&tabBarSelectIndex=1")
         case 9:
             TheRouter.openURL("scheme://router/demo-macro?desc=宏注册跳转")
         default:

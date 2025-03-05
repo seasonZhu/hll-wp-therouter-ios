@@ -23,22 +23,22 @@ public let TheRouterPath = "path"
 public let TheRouterClassName = "class"
 //路由priority常量Key
 public let TheRouterPriority = "priority"
-// tabBar选中参数 tabBarSelecIndex
-public let TheRouterTabBarSelecIndex = "tabBarSelecIndex"
+// tabBar选中参数 tabBarSelectIndex
+public let TheRouterTabBarSelectIndex = "tabBarSelectIndex"
 
 
 //路由优先级默认值
 public let TheRouterDefaultPriority: UInt = 1000
 
-public typealias ComplateHandler = (([String: Any]?, Any?) -> Void)?
+public typealias CompleteHandler = (([String: Any]?, Any?) -> Void)?
 
 // constants
 public extension TheRouter {
     static let patternKey = "patternKey"
     static let requestURLKey = "requestURLKey"
     static let matchFailedKey = "matchFailedKey"
-    static let urlKey = "url"
-    static let userInfoKey = "userInfo"
+    static let urlKey = "urlKey"
+    static let userInfoKey = "userInfoKey"
 }
 
 // 跳转方式

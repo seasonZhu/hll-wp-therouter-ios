@@ -14,7 +14,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         router = [[TheRouterDynamicParamsMapping alloc] init];
-        router.filterKey = @[@"requestURLKey", @"jumpType", @"tabBarSelecIndex"];
+        router.filterKey = @[@"requestURLKey", @"jumpType", @"tabBarSelectIndex"];
     });
     return router;
 }
