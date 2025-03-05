@@ -176,14 +176,14 @@ extension TheRouterManager {
                     if let cls =  currentClass as? UIViewController.Type {
                         resultXLClass.append(cls)
                     }
-                    
+                }
+                
 #if DEBUG
                     if let clss = currentClass as? CustomRouterInfo.Type {
                         apiArray.append(clss.patternString)
                         classMapArray.append(clss.routerClass)
                     }
 #endif
-                }
             }
         }
         
