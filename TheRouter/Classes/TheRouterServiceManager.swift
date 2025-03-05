@@ -12,7 +12,7 @@ public final class TheRouterServiceManager {
     
     public static let `default` = TheRouterServiceManager()
     
-    public init() {}
+    private init() {}
     
     /// Service 同步
     private let serviceQueue = DispatchQueue(label: "scheme.TheRouterServiceManager.queue")

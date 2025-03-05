@@ -16,7 +16,7 @@ public class TheRouerBridge: NSObject {
     
     // 方法1：根据URL字符串打开
     @discardableResult
-    public class func openURL(_ urlString: String, userInfo: [String: Any] = [String: Any](), completeHandler: CompleteHandler = nil) -> Any? {
+    public class func openURL(_ urlString: String, userInfo: [String: Any] = [:], completeHandler: CompleteHandler = nil) -> Any? {
         return TheRouter.openURL(urlString, userInfo: userInfo, completeHandler: completeHandler)
     }
     
@@ -35,7 +35,7 @@ public class TheRouerBridge: NSObject {
 
      // 方法4：根据URL字符串打开WebURL
      @discardableResult
-     public class func openWebURL(_ urlString: String, userInfo: [String: Any] = [String: Any]()) -> Any? {
+     public class func openWebURL(_ urlString: String, userInfo: [String: Any] = [:]) -> Any? {
          return TheRouter.openURL((urlString, userInfo))
      }
 }

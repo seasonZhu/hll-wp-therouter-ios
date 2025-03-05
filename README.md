@@ -566,7 +566,7 @@ Swift 中，我们都知道 Swift 是不支持注解的，那么 Swift 动态注
 
 ```Swift
 @discardableResult
-public class func openURL(_ urlString: String, userInfo: [String: Any] = [String: Any](), handler: completeHandler = nil) -> Any? {
+public class func openURL(_ urlString: String, userInfo: [String: Any] = [:], handler: completeHandler = nil) -> Any? {
     if urlString.isEmpty {
         return nil
     }

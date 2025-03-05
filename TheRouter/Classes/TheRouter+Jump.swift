@@ -12,7 +12,7 @@ import UIKit
 extension TheRouter {
     
     @discardableResult
-    public class func openURL(_ urlString: String, userInfo: [String: Any] = [String: Any](), completeHandler: CompleteHandler = nil) -> Any? {
+    public class func openURL(_ urlString: String, userInfo: [String: Any] = [:], completeHandler: CompleteHandler = nil) -> Any? {
         if urlString.isEmpty {
             return nil
         }
@@ -39,7 +39,7 @@ extension TheRouter {
     
     @discardableResult
     public class func openWebURL(_ urlString: String,
-                                 userInfo: [String: Any] = [String: Any]()) -> Any? {
+                                 userInfo: [String: Any] = [:]) -> Any? {
         return TheRouter.openURL((urlString, userInfo))
     }
     
@@ -65,7 +65,7 @@ extension TheRouter {
         var resultJumpType: LAJumpType = .push
         
         if let typeString = queries[LAJumpTypeKey] as? String,
-           let jumpType = LAJumpType.init(rawValue: Int(typeString) ?? 1) {
+           let jumpType = LAJumpType(rawValue: Int(typeString) ?? 1) {
             resultJumpType = jumpType
         } else {
             resultJumpType = .push
@@ -138,7 +138,7 @@ extension TheRouter {
     }
     // 服务调用
     public class func routerService(_ uriTuple: (String, [String: Any])) -> Any? {
-        let request = TheRouterRequest.init(uriTuple.0)
+        let request = TheRouterRequest(uriTuple.0)
         let queries = request.queries
         guard let protocols = queries["protocol"] as? String,
               let methods = queries["method"] as? String else {

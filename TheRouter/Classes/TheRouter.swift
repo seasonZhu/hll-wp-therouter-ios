@@ -40,6 +40,8 @@ public class TheRouter: TheRouterParser {
     // MARK: - Public  property
     public static let shareInstance = TheRouter()
     
+    private init() {}
+    
     // 映射要替换的路由信息
     public var reloadRouterMap: [TheRouterInfo] = []
     
@@ -64,7 +66,7 @@ public class TheRouter: TheRouterParser {
                        classString: String,
                        priority: uint = 0) {
         
-        let pattern = TheRouterPattern.init(patternString.trimmingCharacters(in: CharacterSet.whitespaces), classString, priority: priority)
+        let pattern = TheRouterPattern(patternString.trimmingCharacters(in: CharacterSet.whitespaces), classString, priority: priority)
         patterns.append(pattern)
         patterns.sort { $0.priority > $1.priority }
     }
@@ -72,7 +74,7 @@ public class TheRouter: TheRouterParser {
     func addRouterInterceptor(_ whiteList: [String] = [String](),
                               priority: uint = 0,
                               handle: @escaping TheRouterInterceptor.InterceptorHandleBlock) {
-        let interceptor = TheRouterInterceptor.init(whiteList, priority: priority, handle: handle)
+        let interceptor = TheRouterInterceptor(whiteList, priority: priority, handle: handle)
         interceptors.append(interceptor)
         interceptors.sort { $0.priority > $1.priority }
     }
@@ -104,14 +106,14 @@ public class TheRouter: TheRouterParser {
         return matchURL(urlString.trimmingCharacters(in: CharacterSet.whitespaces)).pattern != nil
     }
     
-    func requestURL(_ urlString: String, userInfo: [String: Any] = [String: Any]()) -> RouteResponse {
+    func requestURL(_ urlString: String, userInfo: [String: Any] = [:]) -> RouteResponse {
         return matchURL(urlString.trimmingCharacters(in: CharacterSet.whitespaces), userInfo: userInfo)
     }
     
     // MARK: - Private method
-    private func matchURL(_ urlString: String, userInfo: [String: Any] = [String: Any]()) -> RouteResponse {
+    private func matchURL(_ urlString: String, userInfo: [String: Any] = [:]) -> RouteResponse {
         
-        let request = TheRouterRequest.init(urlString)
+        let request = TheRouterRequest(urlString)
         var queries = request.queries
         var matched: TheRouterPattern?
         var matchUserInfo: [String: Any] = userInfo

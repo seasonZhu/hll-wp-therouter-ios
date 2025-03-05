@@ -18,7 +18,7 @@ extension TheRouterBuilder {
     
     @discardableResult
     public class func build(_ path: String) -> TheRouterBuilder {
-        let builder = TheRouterBuilder.init()
+        let builder = TheRouterBuilder()
         builder.buildPaths(path: path)
         return builder
     }

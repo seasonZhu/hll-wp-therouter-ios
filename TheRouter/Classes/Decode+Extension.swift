@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 这个类的用法体现在TheRouterInfo的解码中
 struct JSONCodingKeys: CodingKey {
     var stringValue: String
     

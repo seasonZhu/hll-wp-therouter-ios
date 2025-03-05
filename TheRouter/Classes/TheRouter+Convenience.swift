@@ -105,7 +105,7 @@ public extension TheRouter {
     ///   - urlString: real request urlstring
     ///   - userInfo: custom userInfo, could contain Object
     /// - Returns: response for request, contain pattern and queries
-    class func requestURL(_ urlString: String, userInfo: [String: Any] = [String: Any]()) -> RouteResponse {
+    class func requestURL(_ urlString: String, userInfo: [String: Any] = [:]) -> RouteResponse {
         return shareInstance.requestURL(urlString.trimmingCharacters(in: CharacterSet.whitespaces), userInfo: userInfo)
     }
     
