@@ -167,6 +167,7 @@ extension TheRouterManager {
             
             for idx in 0..<classCount.pointee {
                 let currentClassName = String(cString: classNames[Int(idx)])
+                print("currentClassName:\(currentClassName)")
                 guard let currentClass = NSClassFromString(currentClassName) else {
                     continue
                 }
@@ -177,13 +178,19 @@ extension TheRouterManager {
                         resultXLClass.append(cls)
                     }
                     
+//#if DEBUG
+//                    if let clss = currentClass as? CustomRouterInfo.Type {
+//                        apiArray.append(clss.patternString)
+//                        classMapArray.append(clss.routerClass)
+//                    }
+//#endif
+                }
 #if DEBUG
                     if let clss = currentClass as? CustomRouterInfo.Type {
                         apiArray.append(clss.patternString)
                         classMapArray.append(clss.routerClass)
                     }
 #endif
-                }
             }
         }
         

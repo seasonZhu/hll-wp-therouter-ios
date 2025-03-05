@@ -263,7 +263,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if let routerService = TheRouter.getService(AppRouterProtocol.self) {
                 routerService.openRouter(info: [:])
             }
-            TheRouter.openURL("scheme://router/demo?desc=通过TheRouter.createService(AppConfigLAServiceProtocol.self)协议调用接口服务，实现本地的服务调用")
+            TheRouter.openURL("scheme://router/demo?desc=通过TheRouter.createService(AppConfigServiceProtocol.self)协议调用接口服务，实现本地的服务调用")
         case 5:
             _ = TheRouter.createService(AppConfigServiceProtocol.self)
             let dict: [String: Any] = ["ivar1": ["key":"value"], "resultType": 0]
