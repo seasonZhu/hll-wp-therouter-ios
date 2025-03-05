@@ -7,22 +7,24 @@
 
 import Foundation
 
-struct JSONCodingKeys: CodingKey {
-    var stringValue: String
+/// 这个类的作用是扩展 KeyedDecodingContainer 和 UnkeyedDecodingContainer，使其能够解码和编码包含任意类型的字典和数组。
+/// public struct TheRouterInfo: Decodable这个类有所体现
+public struct JSONCodingKeys: CodingKey {
+    public var stringValue: String
     
-    init(stringValue: String) {
+    public init(stringValue: String) {
         self.stringValue = stringValue
     }
     
-    var intValue: Int?
+    public var intValue: Int?
     
-    init?(intValue: Int) {
+    public init?(intValue: Int) {
         self.init(stringValue: "\(intValue)")
         self.intValue = intValue
     }
 }
 
-extension KeyedDecodingContainer {
+public extension KeyedDecodingContainer {
     
     func decode(_ type: Dictionary<String, Any>.Type, forKey key: K) throws -> Dictionary<String, Any> {
         let container = try self.nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
@@ -70,7 +72,7 @@ extension KeyedDecodingContainer {
     }
 }
 
-extension UnkeyedDecodingContainer {
+public extension UnkeyedDecodingContainer {
     
     mutating func decode(_ type: Array<Any>.Type) throws -> Array<Any> {
         var array: [Any] = []
@@ -97,7 +99,7 @@ extension UnkeyedDecodingContainer {
     }
 }
 
-extension KeyedEncodingContainerProtocol where Key == JSONCodingKeys {
+public extension KeyedEncodingContainerProtocol where Key == JSONCodingKeys {
     mutating func encode(_ value: Dictionary<String, Any>) throws {
         try value.forEach({ (key, value) in
             let key = JSONCodingKeys(stringValue: key)
@@ -123,7 +125,7 @@ extension KeyedEncodingContainerProtocol where Key == JSONCodingKeys {
     }
 }
 
-extension KeyedEncodingContainerProtocol {
+public extension KeyedEncodingContainerProtocol {
     mutating func encode(_ value: Dictionary<String, Any>?, forKey key: Key) throws {
         if value != nil {
             var container = self.nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
@@ -139,7 +141,7 @@ extension KeyedEncodingContainerProtocol {
     }
 }
 
-extension UnkeyedEncodingContainer {
+public extension UnkeyedEncodingContainer {
     mutating func encode(_ value: Array<Any>) throws {
         try value.enumerated().forEach({ (index, value) in
             switch value {

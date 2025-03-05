@@ -18,7 +18,15 @@ class TheRouterControllerA: UIViewController {
     // 扫码完成回调
     @objc public var qrResultCallBack: TheRouerParamsClosureWrapper?
     
+    @objc public var willAppearCallback: TheRouerParamsClosureWrapper?
+    
     @objc var desc: String = ""
+    
+    @objc var id: String = ""
+    
+    @objc var name: String = ""
+    
+    @objc var value: String = ""
 
     private lazy var resultLabel: UILabel = {
         let lb = UILabel()
@@ -28,6 +36,12 @@ class TheRouterControllerA: UIViewController {
         lb.numberOfLines = 0
         return lb
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let _resultCallBack = self.willAppearCallback?.closure else { return }
+        _resultCallBack(["页面即将打开":"1"])
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +54,7 @@ class TheRouterControllerA: UIViewController {
             make.center.equalTo(self.view.center)
         }
         
-        self.resultLabel.text = self.desc
+        self.resultLabel.text = id + name + value + desc
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
             

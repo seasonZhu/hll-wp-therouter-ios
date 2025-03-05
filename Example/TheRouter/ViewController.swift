@@ -49,6 +49,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.estimatedSectionFooterHeight = 0;
+        
+        exampleUsage()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -130,7 +132,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let wrapper = TheRouerParamsClosureWrapper { params in
                 print("Received params: \(params)")
             }
-            TheRouter.openURL(("scheme://router/demo1?id=2&value=3&name=AKyS&desc=直接调用TheRouter.addRouterItem()注册即可，支持单个注册，批量注册字典形式，动态注册TheRouterManager.addGloableRouter，懒加载动态注册 TheRouter.lazyRegisterRouterHandle ",["qrResultCallBack": wrapper]))
+            
+            let willAppearCallback = TheRouerParamsClosureWrapper { params in
+                print("Received params: \(params)")
+            }
+            
+            TheRouter.openURL(("scheme://router/demo1?id=2&value=3&name=AKyS&desc=直接调用TheRouter.addRouterItem()注册即可，支持单个注册，批量注册字典形式，动态注册TheRouterManager.addGloableRouter，懒加载动态注册 TheRouter.lazyRegisterRouterHandle ",["qrResultCallBack": wrapper, "willAppearCallback": willAppearCallback]))
             
         case 2:
             let wrapper = TheRouerParamsClosureWrapper { params in
@@ -272,5 +279,53 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func exampleUsage() {
+        let jsonString = """
+        {
+            "data": {
+                "name": "John",
+                "age": 30,
+                "isMember": true,
+                "scores": [85, 90, 88],
+                "address": {
+                    "city": "New York",
+                    "zip": "10001"
+                }
+            },
+            "items": ["apple", 123, true, {"key": "value"}]
+        }
+        """
+        
+        let jsonData = jsonString.data(using: .utf8)!
+        
+        do {
+            let decoder = JSONDecoder()
+            let example = try decoder.decode(Example.self, from: jsonData)
+            
+            print("Decoded data: \(example.data)")
+            print("Decoded items: \(example.items)")
+        } catch {
+            print("Error decoding or encoding JSON: \(error)")
+        }
+    }
+}
+
+struct Example: Decodable {
+    var data: [String: Any]?
+    var items: [Any]?
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+        case items
+    }
+    
+    public init(from decoder: Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        data = try container.decodeIfPresent(Dictionary<String, Any>.self, forKey: CodingKeys.data)
+        items = try container.decodeIfPresent([Any].self, forKey: CodingKeys.items)
+    }
 }
 
