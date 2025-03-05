@@ -52,7 +52,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "routerCell") ?? UITableViewCell.init()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "routerCell") ?? UITableViewCell()
         cell.textLabel?.text = resultDataSource[indexPath.section][indexPath.row]
         return cell
     }
@@ -74,7 +74,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UILabel.init(frame: CGRectMake(0, 0, UIScreen.main.bounds.size.width, 30))
+        let view = UILabel(frame: CGRectMake(0, 0, UIScreen.main.bounds.size.width, 30))
         view.backgroundColor = UIColor.hexStringColor(hexString: "0xF2F3F4")
         view.textColor = .black
         view.font = .systemFont(ofSize: 12)
@@ -149,16 +149,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let wrapper = TheRouerParamsClosureWrapper { params in
                 print("Received params: \(params)")
             }
-            let model = TheRouterModel.init(name: "AKyS", age: 18)
+            let model = TheRouterModel(name: "AKyS", age: 18)
             TheRouter.openURL(("scheme://router/demo?id=2&value=3&name=AKyS&desc=通过TheRouterManager.addGloableRouter()传入registerClassPrifxArray参数，将指定遍历工程中具有特性前缀名的class，降低遍历数量级，减少性能损耗", ["model": model, "qrResultCallBack": wrapper]))
         case 6:
             TheRouter.openURL(TheRouterBApi().requiredURL)
         case 7:
             
-            let model = TheRouterModel.init(name: "AKyS", age: 18)
+            let model = TheRouterModel(name: "AKyS", age: 18)
             TheRouter.openURL(("scheme://router/demo2?id=2&value=3&name=AKyS&desc=这是一个OC类的界面，实现路由的跳转需要继承OC类，并实现TheRouterAble协议即可", ["model": model]))
         case 8:
-            let model = TheRouterModel.init(name: "AKyS", age: 18)
+            let model = TheRouterModel(name: "AKyS", age: 18)
             TheRouter.openURL(("scheme://router/baseA?id=2&value=3&name=AKyS&desc=基类的路由如何被覆盖重写", ["model": model]))
         case 9:
             TheRouter.openURL("scheme://router/demo9?desc=缓存跳转")
@@ -180,7 +180,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             TheRouter.openURL(("scheme://router/demo?id=3", ["value": 3, "name": "AKyS"]))
         case 3:
             
-            let model = TheRouterModel.init(name: "AKyS", age: 18)
+            let model = TheRouterModel(name: "AKyS", age: 18)
             
             TheRouterBuilder.build("scheme://router/demo")
                 .withInt(key: "intValue", value: 2)
@@ -197,11 +197,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let wrapper = TheRouerParamsClosureWrapper { params in
                 print("Received params: \(params)")
             }
-            let model = TheRouterModel.init(name: "AKyS", age: 18)
+            let model = TheRouterModel(name: "AKyS", age: 18)
             TheRouter.openURL(("scheme://router/demo?id=2&value=3&name=AKyS", ["model": model, "qrResultCallBack": wrapper]))
         case 5:
             
-            let model = TheRouterModel.init(name: "AKyS", age: 18)
+            let model = TheRouterModel(name: "AKyS", age: 18)
             TheRouter.openURL(("scheme://router/demo?id=2&value=3&name=AKyS", ["model": model]))
         case 6:
             TheRouter.openWebURL("https://therouter.cn/")
@@ -240,7 +240,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let data = try! JSONSerialization.data(withJSONObject: relocationMap, options: [])
             let routeReMapInfo = try! JSONDecoder().decode(TheRouterInfo.self, from: data)
             TheRouterManager.addRelocationHandle(routerMapList: [routeReMapInfo])
-            let value = TheRouterCApi.init().requiredURL
+            let value = TheRouterCApi().requiredURL
             TheRouter.openURL(value)
             
         case 3:

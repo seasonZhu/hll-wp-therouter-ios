@@ -240,8 +240,6 @@ public class TheRouterApi: CustomRouterInfo {
     public static var routerClass = "TheRouter_Example.TheRouterController"
     public var params: [String: Any] { return [:] }
     public var jumpType: LAJumpType = .push
-
-    public init() {}
 }
 
 public class TheRouterAApi: CustomRouterInfo {
@@ -250,8 +248,6 @@ public class TheRouterAApi: CustomRouterInfo {
     public static var routerClass = "TheRouter_Example.TheRouterControllerA"
     public var params: [String: Any] { return [:] }
     public var jumpType: LAJumpType = .push
-
-    public init() {}
 }
 
 TheRouter.openURL(TheRouterApi.init().requiredURL)
@@ -469,8 +465,7 @@ TheRouter.openURL((url, dict))
 
 ```Swift
 public struct TheRouterInfo {
-    public init() {}
-    
+
     public var targetPath: String = ""
     public var orginPath: String = ""
     // 1: 表示替换或者修复客户端代码path错误 2: 新增路由path 3:删除路由
@@ -655,6 +650,12 @@ extension TheRouterController: TheRouterable {
     }
 }
 ```
+
+## Xcode16自动注册异常问题
+ ENABLE_DEBUG_DYLIB 设置为NO
+<img src="assets/Xcode build options.png">
+ 
+
 ## 关于作者
 
 [货拉拉移动端技术团队](https://juejin.cn/user/1768489241815070)
