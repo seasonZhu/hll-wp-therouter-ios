@@ -330,12 +330,12 @@ extension TheRouterManager {
         var currentRouterInfo = [TheRouterInfo]()
         for routerInfoInstance in routerMapList {
             
-            if routerInfoInstance.routerType == TheRouterReloadMapEnum.add.rawValue {
+            if routerInfoInstance.routerType == .add {
                 TheRouter.addRouterItem(routerInfoInstance.path ?? "", classString: routerInfoInstance.className ?? "")
-            } else if routerInfoInstance.routerType == TheRouterReloadMapEnum.delete.rawValue {
+            } else if routerInfoInstance.routerType == .delete {
                 TheRouter.removeRouter(routerInfoInstance.path ?? "")
-            } else if routerInfoInstance.routerType == TheRouterReloadMapEnum.replace.rawValue ||
-                        routerInfoInstance.routerType == TheRouterReloadMapEnum.reset.rawValue {
+            } else if routerInfoInstance.routerType == .replace ||
+                        routerInfoInstance.routerType == .reset {
                 currentRouterInfo.append(routerInfoInstance)
             }
         }
@@ -354,17 +354,17 @@ extension TheRouterManager {
         // orginPath与targetPath一致时，删除所有orginPath的重定向数据
         // orginPath与targetPath不一致时，删除原有orginPath的重定向数据，存储新的orginPath数据并把routerType改为add
         for info in currentRouterInfo {
-            if info.routerType == TheRouterReloadMapEnum.reset.rawValue {
+            if info.routerType == .reset {
                 // 如果已经存在相同orginPath的数据 需要先remove
                 if routerInfoMap[info.orginPath ?? ""] != nil {
                     routerInfoMap.removeValue(forKey: info.orginPath ?? "")
                 }
                 if info.orginPath != info.targetPath {
                     var routerInfo = info
-                    routerInfo.routerType = TheRouterReloadMapEnum.replace.rawValue
+                    routerInfo.routerType = .replace
                     routerInfoMap[routerInfo.orginPath ?? ""] = routerInfo
                 }
-            } else if info.routerType == TheRouterReloadMapEnum.replace.rawValue {
+            } else if info.routerType == .replace {
                 routerInfoMap[info.orginPath ?? ""] = info
             }
         }

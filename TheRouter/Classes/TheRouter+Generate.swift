@@ -84,6 +84,8 @@ public struct RouteItem {
     case reset
 }
 
+extension TheRouterReloadMapEnum: Codable {}
+
 // 日志类型
 @objc public enum TheRouterLogType: Int {
     case logNormal
@@ -106,7 +108,7 @@ extension TheRouter {
     public class func generate(_ patternString: String, params: [String: Any] = [:], jumpType: LAJumpType) -> (String, [String: Any]) {
         
         if let url = URL(string: patternString) {
-            let orginParams = url.urlParameters ?? [String: Any]()
+            let orginParams = url.urlParameters ?? [:]
             var queries = params
             queries[LAJumpTypeKey] = "\(jumpType.rawValue)"
             
@@ -116,7 +118,7 @@ extension TheRouter {
             return (patternString, queries)
         }
         
-        return ("", [String: Any]())
+        return ("", [:])
     }
     
 }
@@ -138,7 +140,7 @@ public struct TheRouterInfo: Decodable {
     
     public var targetPath: String?
     public var orginPath: String?
-    public var routerType: Int = 0 // 1: 表示替换或者修复客户端代码path错误 2: 新增路由path 3:删除路由 4: 重置路由
+    public var routerType: TheRouterReloadMapEnum = .none
     public var path: String? // 新的路由地址
     public var className: String? // 路由地址对应的界面
     public var params: [String: Any]?
@@ -157,7 +159,7 @@ public struct TheRouterInfo: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         targetPath = try container.decodeIfPresent(String.self, forKey: CodingKeys.targetPath)
         orginPath = try container.decodeIfPresent(String.self, forKey: CodingKeys.orginPath)
-        routerType = try container.decode(Int.self, forKey: CodingKeys.routerType)
+        routerType = try container.decode(TheRouterReloadMapEnum.self, forKey: CodingKeys.routerType)
         path = try container.decodeIfPresent(String.self, forKey: CodingKeys.path)
         className = try container.decodeIfPresent(String.self, forKey: CodingKeys.className)
         params = try container.decodeIfPresent(Dictionary<String, Any>.self, forKey: CodingKeys.params)

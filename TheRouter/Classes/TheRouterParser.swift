@@ -44,7 +44,7 @@ extension TheRouterParser {
     
     static func parserQuerys(_ url: URL) -> [String: Any] {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            return [String: Any]()
+            return [:]
         }
         let query = la_parserQuery(components)
         return (query as [String: Any])

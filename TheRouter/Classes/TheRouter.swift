@@ -55,6 +55,7 @@ public class TheRouter: TheRouterParser {
     
     public var webPath: String?
     
+    // 注意!!!注册serviceHost的时候必须以?结尾,否则会解析不出来serviceHost
     public var serviceHost: String = "scheme://services?"
     
     public var logcat: RouterLogHandleBlock?
@@ -236,7 +237,7 @@ public class TheRouter: TheRouterParser {
             
             for rouerInfo in reloadRouterMap {
                 
-                if (rouerInfo.routerType == TheRouterReloadMapEnum.replace.rawValue) {
+                if (rouerInfo.routerType == .replace) {
                     if (patterns.first(where: { $0.patternString == rouerInfo.orginPath }) != nil) {
                         orignRouterUrl = rouerInfo.orginPath ?? ""
                         replacedRouterUrl = rouerInfo.targetPath ?? ""

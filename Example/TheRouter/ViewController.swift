@@ -222,20 +222,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func dynamicRouter(indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let relocationMap: NSDictionary = ["routerType": 1, "targetPath": "scheme://router/demo1", "orginPath": "scheme://router/demo"]
+            // routerType 1: 表示替换或者修复客户端代码path错误 2: 新增路由path 3:删除路由 4: 重置路由
+            let relocationMap: [String: Any] = ["routerType": 1, "targetPath": "scheme://router/demo1", "orginPath": "scheme://router/demo"]
             let data = try! JSONSerialization.data(withJSONObject: relocationMap, options: [])
             let routeReMapInfo = try! JSONDecoder().decode(TheRouterInfo.self, from: data)
             TheRouterManager.addRelocationHandle(routerMapList: [routeReMapInfo])
             TheRouter.openURL("scheme://router/demo?desc=跳转白色界面被重定向到了黄色界面")
         case 1:
             
-            let relocationMap: NSDictionary = ["routerType": 4, "targetPath": "scheme://router/demo", "orginPath": "scheme://router/demo"]
+            let relocationMap: [String: Any] = ["routerType": 4, "targetPath": "scheme://router/demo", "orginPath": "scheme://router/demo"]
             let data = try! JSONSerialization.data(withJSONObject: relocationMap, options: [])
             let routeReMapInfo = try! JSONDecoder().decode(TheRouterInfo.self, from: data)
             TheRouterManager.addRelocationHandle(routerMapList: [routeReMapInfo])
             TheRouter.openURL("scheme://router/demo?desc=跳转白色界面被重定向到了黄色界面之后，根据下发数据又恢复到跳转白色界面")
         case 2:
-            let relocationMap: NSDictionary = ["routerType": 2, "className": "TheRouter_Example.TheRouterControllerC", "path": "scheme://router/demo33"]
+            let relocationMap: [String: Any] = ["routerType": 2, "className": "TheRouter_Example.TheRouterControllerC", "path": "scheme://router/demo33"]
             let data = try! JSONSerialization.data(withJSONObject: relocationMap, options: [])
             let routeReMapInfo = try! JSONDecoder().decode(TheRouterInfo.self, from: data)
             TheRouterManager.addRelocationHandle(routerMapList: [routeReMapInfo])
@@ -243,7 +244,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             TheRouter.openURL(value)
             
         case 3:
-            let relocationMap: NSDictionary = ["routerType": 2, "className": "TheRouter_Example.TheRouterControllerD", "path": "scheme://router/demo5"]
+            let relocationMap: [String: Any] = ["routerType": 2, "className": "TheRouter_Example.TheRouterControllerD", "path": "scheme://router/demo5"]
             let data = try! JSONSerialization.data(withJSONObject: relocationMap, options: [])
             let routeReMapInfo = try! JSONDecoder().decode(TheRouterInfo.self, from: data)
             TheRouterManager.addRelocationHandle(routerMapList: [routeReMapInfo])
