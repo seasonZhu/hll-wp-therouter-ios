@@ -226,7 +226,7 @@ public class TheRouter: TheRouterParser {
     }
     
     func reloadRouterMap(_ reloadRouterMap: [TheRouterInfo], url: String) -> [String: Any]?  {
-        if reloadRouterMap.count > 0 {
+        if reloadRouterMap.isNotEmpty {
             
             var orignRouterUrl = ""
             var replacedRouterUrl = ""

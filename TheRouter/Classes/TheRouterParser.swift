@@ -93,14 +93,14 @@ extension TheRouterParser {
         var paths = [String]()
         
         // check host
-        if let host = components.host, host.count > 0 {
+        if let host = components.host, host.isNotEmpty {
             paths.append(host)
         }
         
         // check path
         let path = components.path
-        if path.count > 0 {
-            let pathComponents = path.components(separatedBy: "/").filter { $0.count > 0}
+        if path.isNotEmpty {
+            let pathComponents = path.components(separatedBy: "/").filter { $0.isNotEmpty }
             paths += pathComponents
         }
         
@@ -111,7 +111,7 @@ extension TheRouterParser {
     private static func la_parserQuery(_ components: URLComponents) -> [String: Any] {
         
         guard let items = components.queryItems,
-              items.count > 0 else {
+              items.isNotEmpty else {
             return [:]
         }
         
@@ -130,7 +130,7 @@ extension TheRouterParser {
     public static func canOpenURLString(_ urlString: String) -> URL? {
         
         let urlString = urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        guard let encodeString = urlString, encodeString.count > 0 else {
+        guard let encodeString = urlString, encodeString.isNotEmpty else {
             return nil
         }
         

@@ -331,7 +331,7 @@ extension TheRouter {
         let res = getKeyWindow().subviews.filter { (subView: UIView) -> Bool in
             return subView.isKind(of: view.self)
         }
-        return res.count > 0
+        return res.isNotEmpty
     }
     
     // MARK: - 获取活跃VC
@@ -348,7 +348,7 @@ extension TheRouter {
             }
         }
         
-        if activeWindow != nil && activeWindow!.subviews.count > 0 {
+        if activeWindow != nil && activeWindow!.subviews.isNotEmpty {
             let frontView: UIView = activeWindow!.subviews.last!
             var nextResponder: UIResponder? = frontView.next
             

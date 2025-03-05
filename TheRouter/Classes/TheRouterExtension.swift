@@ -120,3 +120,6 @@ public extension Dictionary  {
     }
 }
 
+extension Collection {
+    var isNotEmpty: Bool { return !isEmpty }
+}
