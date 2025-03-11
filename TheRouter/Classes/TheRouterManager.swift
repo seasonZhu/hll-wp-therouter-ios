@@ -323,7 +323,7 @@ extension TheRouterManager {
     // MARK: - 重定向、剔除、新增、重置路由
     public static func addRelocationHandle(routerMapList: [TheRouterInfo] = []) {
         // 数组为空 return
-        if routerMapList.count == 0 {
+        if routerMapList.isEmpty {
             return
         }
         // 新增的重定向信息转模型
@@ -340,7 +340,7 @@ extension TheRouterManager {
             }
         }
         // 模型转化后的数组为空 return
-        if currentRouterInfo.count == 0 {
+        if currentRouterInfo.isEmpty {
             return
         }
         // 老的重定向数据map
@@ -385,14 +385,14 @@ extension TheRouterManager {
         let diffArray = patternArray.symmetricDifference(apiPathArray)
         debugPrint("URL差集：\(diffArray)")
         debugPrint("registerRouterList：\(registerRouterList)")
-        assert(diffArray.count == 0, "URL 拼写错误，请确认差集中的url是否匹配")
+        assert(diffArray.isEmpty, "URL 拼写错误，请确认差集中的url是否匹配")
         
         let classNames = registerRouterList.compactMap { $0[TheRouterClassName] }
         let patternValueArray = Set(classNames)
         let classPathArray = Set(classMapArray)
         let diffClassesArray = patternValueArray.symmetricDifference(classPathArray)
         debugPrint("classes差集：\(diffClassesArray)")
-        assert(diffClassesArray.count == 0, "classes 拼写错误，请确认差集中的class是否匹配")
+        assert(diffClassesArray.isEmpty, "classes 拼写错误，请确认差集中的class是否匹配")
     }
     
     // MARK: - 路由映射文件导出

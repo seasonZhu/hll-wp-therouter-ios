@@ -105,13 +105,13 @@ extension TheRouter {
                 case .modal:
                     modal(vc)
                 case .push:
-                    push(vc)
+                    push(vc, queries: queries)
                 case .popToTaget:
                     popToTargetVC(vcClass: type(of: vc))
                 case .windowNavRoot:
                     pusbWindowNavRoot(vc)
                 case .modalDismissBeforePush:
-                    modalDismissBeforePush(vc)
+                    modalDismissBeforePush(vc, queries: queries)
                 case .showTab:
                     showTabBar(queries: queries)
                 }
@@ -230,7 +230,7 @@ extension TheRouter {
         }
     }
     
-    public class func push(_ vc: UIViewController) {
+    public class func push(_ vc: UIViewController, queries: [String: Any]) {
         
         guard let currentVC = getActivityViewController() else {
             return
@@ -238,6 +238,10 @@ extension TheRouter {
         if currentVC is UITabBarController {
             vc.hidesBottomBarWhenPushed = true
             la_getTopViewController(nil)?.navigationController?.pushViewController(vc, animated: true)
+            
+            if let patterns = queries[LARemovePatterns] as? [String] {
+                la_getTopViewController(nil)?.navigationController?.removeViewControllerByPatterns(patterns, animated: false)
+            }
         } else {
             DispatchQueue.main.async {
                 var navVC: UINavigationController?
@@ -248,6 +252,10 @@ extension TheRouter {
                 }
                 vc.hidesBottomBarWhenPushed = true
                 navVC?.pushViewController(vc, animated: true)
+                
+                if let patterns = queries[LARemovePatterns] as? [String] {
+                    navVC?.removeViewControllerByPatterns(patterns, animated: false)
+                }
             }
         }
     }
@@ -304,13 +312,13 @@ extension TheRouter {
         }
     }
     
-    public class func modalDismissBeforePush(_ vc: UIViewController) {
+    public class func modalDismissBeforePush(_ vc: UIViewController, queries: [String: Any]) {
         if let visiableVC = TheRouter.la_getTopViewController(nil), visiableVC.presentingViewController != nil {
             visiableVC.dismiss(animated: false) {
-                push(vc)
+                push(vc, queries: queries)
             }
         } else {
-            push(vc)
+            push(vc, queries: queries)
         }
     }
     

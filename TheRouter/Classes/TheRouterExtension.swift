@@ -123,3 +123,33 @@ public extension Dictionary  {
 extension Collection {
     var isNotEmpty: Bool { return !isEmpty }
 }
+
+extension Array where Element: Hashable {
+    func containsAllElements(of otherArray: [Element]) -> Bool {
+        let selfSet = Set(self)
+        let otherSet = Set(otherArray)
+        return otherSet.isSubset(of: selfSet)
+    }
+}
+
+extension UINavigationController {
+    func removeViewControllerByPatterns(_ patterns: [String], animated flag: Bool) {
+        var controllers = viewControllers
+        var controllersToRemove: [UIViewController] = []
+        
+        for obj in controllers where obj is TheRouterable {
+            let type: TheRouterable.Type = obj.classForCoder as! any TheRouterable.Type
+            if patterns.containsAllElements(of: type.patternString) {
+                controllersToRemove.append(obj)
+            }
+        }
+        
+        for removeVC in controllersToRemove {
+            if let index = controllers.firstIndex(of: removeVC) {
+                controllers.remove(at: index)
+            }
+        }
+        
+        self.setViewControllers(controllers, animated: true)
+    }
+}

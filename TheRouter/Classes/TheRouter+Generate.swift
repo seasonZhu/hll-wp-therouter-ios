@@ -11,6 +11,9 @@ import UIKit
 // MARK: - Constants
 // 跳转类型Key
 public let LAJumpTypeKey = "jumpType"
+// push时需要删除栈的key
+public let LARemovePatterns = "removePatterns"
+
 // 第一个参数Key
 public let TheRouterIvar1Key = "ivar1"
 // 第二个参数Key

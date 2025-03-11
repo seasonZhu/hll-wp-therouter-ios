@@ -609,13 +609,13 @@ public static func routerForceRecheck() {
     let diffArray = patternArray.symmetricDifference(apiPathArray)
     debugPrint("URL差集：\(diffArray)")
     debugPrint("pagePathMap：\(pagePathMap)")
-    assert(diffArray.count == 0, "URL 拼写错误，请确认差集中的url是否匹配")
+    assert(diffArray.isEmpty == 0, "URL 拼写错误，请确认差集中的url是否匹配")
 
     let patternValueArray = Set(pagePathMap.values)
     let classPathArray = Set(classMapArray)
     let diffClassesArray = patternValueArray.symmetricDifference(classPathArray)
     debugPrint("classes差集：\(diffClassesArray)")
-    assert(diffClassesArray.count == 0, "classes 拼写错误，请确认差集中的class是否匹配")
+    assert(diffClassesArray.isEmpty == 0, "classes 拼写错误，请确认差集中的class是否匹配")
 }
 ```
 
